@@ -237,13 +237,14 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
 
 /* ══════ FEEDBACK OVERLAY ══════ */
 .fbov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px;}
-.fbcard{background:#fff;border-radius:14px;padding:28px 26px;max-width:440px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.22);border-top:5px solid var(--brand);transform:translateZ(0);-webkit-transform:translateZ(0);}
+.fbcard{background:#fff;border-radius:14px;padding:28px 26px;max-width:560px;width:100%;max-height:90vh;display:flex;flex-direction:column;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.22);border-top:5px solid var(--brand);transform:translateZ(0);-webkit-transform:translateZ(0);}
 .fbcard.wfb{border-top-color:var(--red);}
-.fbico{font-size:46px;display:block;margin-bottom:7px;}
-.fbres{font-family:'Orbitron',monospace;font-size:23px;font-weight:900;margin-bottom:5px;}
+.fbico{font-size:46px;display:block;margin-bottom:7px;flex-shrink:0;}
+.fbres{font-family:'Orbitron',monospace;font-size:23px;font-weight:900;margin-bottom:5px;flex-shrink:0;}
 .fbres.ok{color:var(--brand);}.fbres.bad{color:var(--red);}
-.fbpts{font-family:'Rajdhani',sans-serif;font-size:14.5px;color:var(--gold);font-weight:700;margin-bottom:13px;}
-.fbtxt{font-size:13.5px;line-height:1.7;color:var(--tmid);background:var(--brand-pale);border-radius:7px;padding:11px 13px;margin-bottom:17px;text-align:left;}
+.fbpts{font-family:'Rajdhani',sans-serif;font-size:14.5px;color:var(--gold);font-weight:700;margin-bottom:13px;flex-shrink:0;}
+.fbtxt{font-size:13.5px;line-height:1.7;color:var(--tmid);background:var(--brand-pale);border-radius:7px;padding:11px 13px;margin-bottom:17px;text-align:justify;overflow-y:auto;flex:1;min-height:0;}
+.fbcard .btn{flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -256,6 +257,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
       <div class="bp-ttl">ATRAPA LOS<span>PREVENPOINTS</span></div>
       <div class="bp-div"></div>
       <div class="bp-sub">CEPYME Aragón · PRL</div>
+      <div style="font-size:10px;color:#fff;text-align:center;line-height:1.6;padding:0 6px;opacity:0.85;">Un juego para poner a prueba tus conocimientos en Prevención de Riesgos Laborales</div>
     </div>
     <div class="bp-stats">
       <div class="bps"><div class="bps-l">PrevenPoints</div><div class="bps-v gold sm" id="sb-pts">1.000.000</div></div>
@@ -277,6 +279,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
           <div class="bp-ttl" style="font-size:12px;">ATRAPA LOS<span style="font-size:14px;">PREVENPOINTS</span></div>
           <div class="bp-div"></div>
           <div class="bp-sub" style="font-size:9.5px;color:#ffffff;">CEPYME Aragón · PRL</div>
+          <div style="font-size:10px;color:#fff;text-align:center;line-height:1.6;padding:0 6px;opacity:0.85;">Un juego para poner a prueba tus conocimientos en Prevención de Riesgos Laborales</div>
         </div>
       </div>
       <div class="reg-right" style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 36px;background:#fff;">
@@ -452,12 +455,209 @@ const F_SECS ='entry.1882658948';
 
 
 /* ═══ PREGUNTAS ═══ */
-const QS=Array.from({length:20},(_,i)=>({
-  text:`Aquí irá el texto de la pregunta ${i+1}`,
-  answers:['Respuesta de ejemplo 1','Respuesta de ejemplo 2','Respuesta de ejemplo 3'],
+const QS=[
+{
+  text:'¿Cómo puede definirse riesgo laboral?',
+  answers:[
+    'La posibilidad de que un trabajador experimente un daño como consecuencia de su actividad laboral.',
+    'Incidencia en la que aparece una situación peligrosa relacionada con el trabajo.',
+    'La exposición a situaciones de riesgo grave.'
+  ],
   correct:0,
-  feedback:`Feedback formativo de prueba para la pregunta ${i+1}. Aquí se explicará por qué la respuesta correcta es la A y qué dice la normativa al respecto.`
-}));
+  feedback:'Respuesta correcta a). Para que se produzca un riesgo laboral el daño producido debe derivar del trabajo desempeñado (Art. 4.2 de la Ley de prevención de riesgos laborales)'
+},
+{
+  text:'¿Qué es un equipo de protección individual o EPI?',
+  answers:[
+    'Cualquier equipo destinado a ser llevado o sujetado por el trabajador para que le proteja de uno o varios riesgos que puedan amenazar su seguridad o su salud en el trabajo, así como cualquier complemento o accesorio destinado a tal fin.',
+    'La primera alternativa respecto a la protección de los trabajadores frente a un riesgo.',
+    'Únicamente los sistemas de protección colectiva incorporados en las instalaciones de la empresa.'
+  ],
+  correct:0,
+  feedback:'Respuesta correcta a). La definición legal del término se recoge en el artículo 4. 8º de la Ley de Prevención de riesgos laborales establece que un EPI "es cualquier equipo destinado a ser llevado o sujetado por el trabajador para que le proteja de uno o varios riesgos que puedan amenazar su seguridad o su salud en el trabajo, así como cualquier complemento o accesorio destinado a tal fin". Los EPI´S "se utilizarán cuando los riesgos no se puedan evitar o no puedan limitarse suficientemente por medios técnicos de protección colectiva o mediante medidas, métodos o procedimientos de organización del trabajo (Art. 17.2).'
+},
+{
+  text:'¿Cuál es el deber principal de las personas trabajadoras en materia de prevención de riesgos laborales?',
+  answers:[
+    'Aplicar y supervisar las medidas de prevención en la empresa.',
+    'Cuidar de su propia seguridad y salud, así como de la de aquellas personas que puedan verse afectadas por su actividad profesional.',
+    'Elaborar e implantar las medidas preventivas correspondientes a su puesto de trabajo.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b). Art.29 de la Ley de Prevención de Riesgos Laborales establece que "el trabajador debe velar por su propia seguridad y salud y por la de terceros, mediante el cumplimiento de las medidas preventivas, conforme a su formación y siguiendo las instrucciones del empresario"'
+},
+{
+  text:'Cuando se identifica una situación de riesgo en el centro de trabajo, ¿cómo debemos actuar?',
+  answers:[
+    'No intervenir, ya que es responsabilidad del responsable de prevención.',
+    'Intentar resolver el problema por nuestra cuenta para evitar mayores consecuencias.',
+    'Informar inmediatamente a nuestro superior o a la persona encargada de prevención de riesgos laborales.'
+  ],
+  correct:2,
+  feedback:'Respuesta correcta c). Art.29.2.4º Ley de Prevención de riesgos laborales "el trabajador deberá Informar de inmediato a su superior jerárquico directo, y a los trabajadores designados para realizar actividades de protección y de prevención o, en su caso, al servicio de prevención, acerca de cualquier situación que, a su juicio, entrañe, por motivos razonables, un riesgo para la seguridad y la salud de los trabajadores"'
+},
+{
+  text:'¿Qué acción ayuda a prevenir las caídas al mismo nivel en el lugar de trabajo?',
+  answers:[
+    'Emplear arnés de seguridad.',
+    'Utilizar mascarilla de protección.',
+    'Mantener el orden y la limpieza en las áreas de trabajo.'
+  ],
+  correct:2,
+  feedback:'Respuesta correcta c). Para evitar las caídas al mismo nivel en un centro de trabajo existen unas acciones básicas que la ley enumera entre otras la señalización, iluminación, mantenimiento en general y destaca también el orden y limpieza. AnexoII RD 486/1997, de 14 de abril, por el que se establecen las disposiciones mínimas de seguridad y salud en los lugares de trabajo establece que "2. Los lugares de trabajo, incluidos los locales de servicio, y sus respectivos equipos e instalaciones, se limpiarán periódicamente y siempre que sea necesario para mantenerlos en todo momento en condiciones higiénicas adecuadas."'
+},
+{
+  text:'¿En qué momento debe la empresa formar a la persona trabajadora en materia preventiva?',
+  answers:[
+    'En el momento de su incorporación a la empresa.',
+    'Cuando se modifiquen sus funciones o se introduzcan cambios tecnológicos o en los equipos de trabajo.',
+    'Las dos opciones anteriores son correctas.'
+  ],
+  correct:2,
+  feedback:'Respuesta correcta c).  Art. 19.1 de la Ley de Prevención de Riesgos laborales "en cumplimiento del deber de protección, el empresario deberá garantizar que cada trabajador reciba una formación teórica y práctica, suficiente y adecuada, en materia preventiva, tanto en el momento de su contratación, cualquiera que sea la modalidad o duración de ésta, como cuando se produzcan cambios en las funciones que desempeñe o se introduzcan nuevas tecnologías o cambios en los equipos de trabajo"'
+},
+{
+  text:'¿Cómo se define la evaluación de riesgos?',
+  answers:[
+    'Un trámite voluntario que se realiza únicamente al comenzar la actividad laboral.',
+    'Una revisión llevada a cabo por la Inspección de Trabajo.',
+    'El proceso obligatorio que toda empresa debe realizar para identificar los riesgos que no hayan podido evitarse, valorarlos y adoptar medidas preventivas.'
+  ],
+  correct:2,
+  feedback:'Respuesta correcta c). La evaluación de los riesgos laborales es el proceso dirigido a estimar la magnitud de aquellos riesgos que no hayan podido evitarse, obteniendo la información necesaria para que el empresario esté en condiciones de tomar una decisión apropiada sobre la necesidad de adoptar medidas preventivas y, en tal caso, sobre el tipo de medidas que deben adoptarse. Art. 3.1 RD 39/1997, de 17 de enero, Reglamento de los Servicios de Prevención.'
+},
+{
+  text:'¿Qué definimos como accidente de trabajo?',
+  answers:[
+    'Cualquier lesión o perjuicio que ocurra fuera del entorno de trabajo.',
+    'Toda lesión o daño que la persona trabajadora sufra con motivo o como consecuencia de su actividad laboral.',
+    'Únicamente los siniestros de carácter grave que tengan lugar durante la jornada laboral.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b). Artículo 156 de la Ley General de la Seguridad Social "Se entiende por accidente de trabajo toda lesión corporal que el trabajador sufra con ocasión o por consecuencia del trabajo que ejecute por cuenta ajena".'
+},
+{
+  text:'Con respecto a las vías de circulación en un centro de trabajo, ¿cuál es la medida correcta?',
+  answers:[
+    'Las áreas de trabajo y almacenes se señalizarán solo si la empresa considera que existe un elevado riesgo.',
+    'Las zonas de paso, salidas y vías de circulación deben mantenerse siempre libres de obstáculos.',
+    'Ninguna de las anteriores.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b). Según el anexo II apartado 1 del RD 486/1997 de 14 de abril, por el que se establecen las disposiciones mínimas de seguridad y salud en los lugares de trabajos. "Las zonas de paso, salidas y vías de circulación de los lugares de trabajo y, en especial, las salidas y vías de circulación previstas para la evaluación en casos de emergencia, deberán permanecer libres de obstáculos de forma que sea posible utilizarlas sin dificultades en todo momento."'
+},
+{
+  text:'Ante un accidente debemos conocer el protocolo PAS. ¿Sabes qué significan estas siglas?',
+  answers:[
+    'Proteger, Avisar y Socorrer.',
+    'Proteger, Auxiliar y Mantener la seguridad.',
+    'Prevenir, Actuar y Socorrer.'
+  ],
+  correct:0,
+  feedback:'Respuesta correcta a). Es determinante conocer y aplicar la conducta PAS (Proteger, avisar y Socorrer) en los primeros minutos, su correcta aplicación multiplica las posibilidades de supervivencia.\n• Proteger: Garantizar la seguridad del entorno, la víctima y la persona que auxilia.\n• Avisar: Contactar con los servicios de emergencia y dar información clara.\n• Socorrer: Tomar medidas de primeros auxilios mientras llega la ayuda.'
+},
+{
+  text:'¿Qué entendemos por enfermedad profesional?',
+  answers:[
+    'Cualquier dolencia o patología de carácter común.',
+    'Aquella enfermedad que figura en el listado oficial de enfermedades profesionales establecido por la normativa.',
+    'Una enfermedad diagnosticada por el médico de la empresa.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b). La enfermedad para ser catalogada como profesional es preciso que sea contraída a consecuencia del trabajo ejecutado y que se encuentre en el cuadro de enfermedades profesionales recogidas en nuestra legislación.\nEl artículo 157 La Ley General de la Seguridad Social "se entenderá por enfermedad profesional la contraída a consecuencia del trabajo ejecutado por cuenta ajena en las actividades que se especifiquen en el cuadro que se apruebe por las disposiciones de aplicación y desarrollo de esta ley, y que esté provocada por la acción de los elementos o sustancias que en dicho cuadro se indiquen para cada enfermedad profesional..."'
+},
+{
+  text:'¿Cuál de las siguientes afirmaciones es falsa?',
+  answers:[
+    'Las personas trabajadoras deben ser informadas y formadas en materia preventiva.',
+    'La empresa deberá garantizar la seguridad y la salud del personal en todos los aspectos relacionados con el trabajo, garantizándoles además la vigilancia periódica de su estado de salud.',
+    'No es obligación de la plantilla cooperar con la empresa para garantizar unas condiciones de trabajo seguras; según la normativa, esta obligación recae únicamente en la empresa.'
+  ],
+  correct:2,
+  feedback:'Respuesta correcta c) entre las obligaciones de las personas trabajadoras en materia de prevención de riesgos laborales figuran cooperar con el empresario para que éste pueda garantizar unas condiciones de trabajo que sean seguras y no entrañen riesgos para la seguridad y salud de las personas trabajadoras. Todo ello, con arreglo a su formación y siguiendo las instrucciones del empresario (art. 29.2 Ley PRL).'
+},
+{
+  text:'¿Cuál de estos conceptos define la salud laboral?',
+  answers:[
+    'Ausencia de enfermedad.',
+    'Estado de bienestar físico, mental y social de la persona trabajadora.',
+    'Nivel de productividad de la empresa.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b) Según la Organización Mundial de la Salud la salud laboral implica el máximo nivel de bienestar físico, mental y social de las personas trabajadoras.'
+},
+{
+  text:'¿Qué significa esta señal?\n\n[imagen: señal de punto de reunión]',
+  image:'https://www.abandoseguridad.com/wp-content/uploads/2020/09/PUNTO-DE-REUNI%C3%93N-E007-ISO-7010.png',
+  answers:[
+    'Salida de emergencia.',
+    'Punto de reunión.',
+    'Pulsador de emergencia.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b) Esta señal indica el lugar previamente establecido al que deben dirigirse las personas tras evacuar un edificio o zona de riesgo en caso de emergencia (incendio, explosión, fuga de gas, etc.). \nForma parte de la señalización de seguridad regulada en el Real Decreto 485/1997, sobre disposiciones mínimas en materia de señalización de seguridad y salud en el trabajo.'
+},
+{
+  text:'¿Qué se entiende por protección colectiva?',
+  answers:[
+    'El conjunto de medidas de seguridad destinadas a proteger de forma simultánea a varias personas expuestas a un determinado riesgo.',
+    'El conjunto de equipos de protección individual que utilizan de manera obligatoria todas las personas trabajadoras en una empresa.',
+    'Las medidas disciplinarias adoptadas por la empresa cuando una persona trabajadora incumple las normas de seguridad.'
+  ],
+  correct:0,
+  feedback:'Respuesta correcta a) Se entiende por protección colectiva a la técnica de seguridad cuyo objetivo es la protección simultánea de varias personas trabajadoras expuestas a un determinado riesgo. Un ejemplo son los sistemas utilizados contra caídas de altura (barandillas, pasarelas, redes de seguridad, andamios...) \nEste tipo de protecciones tienen preferencia respecto a la protección individual. Según se establece en la Ley de Prevención de Riesgos Laborales, el empresario adoptará medidas que antepongan la protección colectiva a la individual (art. 15).\nLos equipos de protección individual deberán utilizarse cuando los riesgos no se puedan evitar o no puedan limitarse suficientemente por medios técnicos de protección colectiva o mediante medidas, métodos o procedimientos de organización del trabajo (art. 17 Ley PRL).'
+},
+{
+  text:'¿Es obligatorio el reconocimiento médico?',
+  answers:[
+    'Con carácter general es voluntario, pero podrá ser obligatorio en determinados supuestos legalmente previstos.',
+    'Es obligatorio para todas las personas trabajadoras, sin excepción.',
+    'Es siempre voluntario y nunca puede imponerse su realización.'
+  ],
+  correct:0,
+  feedback:'Respuesta correcta a) El Artículo 22 de la Ley 31/1995, de 8 de noviembre, de Prevención de Riesgos Laborales establece que la vigilancia de la salud es voluntaria. No obstante, la propia ley establece excepciones en las que el reconocimiento médico puede ser obligatorio cuando:\n• Sea imprescindible para evaluar los efectos de las condiciones de trabajo sobre la salud de las personas trabajadoras.\n• Sea necesario para verificar si el estado de salud de la persona trabajadora puede constituir un peligro para él mismo, para otras personas trabajadoras o para terceros relacionados con la empresa.\n• Exista una disposición legal específica que así lo determine en relación con la protección de riesgos concretos o actividades de especial peligrosidad.'
+},
+{
+  text:'¿Cómo debemos actuar si al utilizar una máquina detectamos algún defecto o riesgo para la salud?',
+  answers:[
+    'Informar a la persona responsable directa y no utilizar la máquina hasta que sea revisada por personal cualificado.',
+    'Realizar personalmente el mantenimiento o reparación necesaria.',
+    'Suspender la actividad y notificar los hechos directamente a la Inspección de Trabajo.'
+  ],
+  correct:0,
+  feedback:'Respuesta correcta a). En el caso de que un trabajador observe que existe alguna deficiencia estructural o mecánica o un riesgo para la salud tiene la obligación legal de informar de este hecho a aquellas personas de la empresa que se especifican en la normativa.\nEn el artículo 29.2.4 de la LPRL "Los trabajadores…. Deberán en particular: … Informar de inmediato a su superior jerárquico directo, y a los trabajadores designados para realizar actividades de protección y de prevención o, en su caso, al servicio de prevención, acerca de cualquier situación que, a su juicio, entrañe, por motivos razonables, un riesgo para la seguridad y la salud de los trabajadores"'
+},
+{
+  text:'¿Cuál de estas afirmaciones sobre los accidentes "in itinere" es correcta?',
+  answers:[
+    'Se considera accidente de trabajo "in itinere" el que sufra la persona trabajadora al ir o al volver del lugar de trabajo.',
+    'Son accidentes que no están reconocidos como tales en nuestra legislación.',
+    'Son aquellos accidentes causados por dolencias profesionales.'
+  ],
+  correct:0,
+  feedback:'Respuesta correcta a). El artículo 156. 2 establece que "Tendrán la consideración de accidentes de trabajo: a) los que sufra el trabajador al ir o al volver del lugar de trabajo"'
+},
+{
+  text:'En el ámbito de la prevención de riesgos laborales, el acoso sexual en el trabajo debe considerarse como:',
+  answers:[
+    'Una conducta privada ajena a las obligaciones preventivas de la empresa.',
+    'Un riesgo de naturaleza psicosocial que debe ser prevenido por la empresa.',
+    'Un conflicto interpersonal sin relevancia jurídica en materia de seguridad y salud.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b) La Psicosociología es la disciplina técnica de la prevención de riesgos laborales que se ocupa de las condiciones de trabajo relacionadas con la organización del trabajo, con el contenido y la ejecución de las tareas y con las relaciones interpersonales y los contextos en los que se desarrolla el trabajo (nivel de carga de trabajo, relaciones entre compañeros, con clientes o proveedores, trabajar en aislamiento….).\nLa violencia derivada de la exposición a factores de riesgo psicosocial puede manifestarse también a través de situaciones de acoso moral, psicológico o mobbing, acoso sexual o por razón de sexo, acoso discriminatorio o violencia ocupacional externa. \nPor tanto, el acoso sexual no es una cuestión privada, no es solo un conflicto interpersonal y no es ajeno a la prevención.'
+},
+{
+  text:'¿Por qué es importante incorporar la perspectiva de género en la seguridad y salud laboral?',
+  answers:[
+    'Porque la normativa obliga a aplicar medidas preventivas diferentes únicamente a las mujeres, con independencia del puesto de trabajo.',
+    'Porque permite identificar, evaluar y prevenir adecuadamente los riesgos laborales teniendo en cuenta las diferencias biológicas, sociales y laborales que influyen en la exposición y en los daños a la salud.',
+    'Porque mejora la imagen corporativa de la empresa en materia de igualdad, aunque no tenga impacto real en la prevención de riesgos.'
+  ],
+  correct:1,
+  feedback:'Respuesta correcta b) La Ley 31/1995 de Prevención de Riesgos Laborales establece en su artículo 14 el derecho de las personas trabajadoras a una protección eficaz en materia de seguridad y salud, y en su artículo 15 obliga a adaptar el trabajo a la persona. Esto implica tener en cuenta características individuales que puedan influir en la exposición a los riesgos.\nAdemás, la Ley Orgánica 3/2007, para la igualdad efectiva de mujeres y hombres establece que se deben considerar variables relacionadas con el sexo tanto en los sistemas de recogida y tratamiento de datos como en el estudio e investigación generales en materia de PRL, con el objetivo de detectar y prevenir posibles situaciones en las que los daños derivados del trabajo puedan aparecer vinculados con el sexo de las personas trabajadoras.\nIncorporar la perspectiva de género permite:\n• Detectar diferencias en la exposición a riesgos (por ejemplo, mayor presencia de mujeres en determinados sectores o tareas).\n• Identificar riesgos infravalorados, como los riesgos psicosociales o los derivados de la doble presencia.\n• Tener en cuenta diferencias biológicas que puedan influir en la salud laboral.\nPor tanto, integrar la perspectiva de género mejora la calidad de la evaluación de riesgos y garantiza una protección más eficaz, cumpliendo tanto la normativa preventiva como la de igualdad.'
+}
+];
 
 /* ═══ ESTADO ═══ */
 let nombre='',apels='',empresa='',cargo='',email='',telf='',modalidad='Individual',pp=1000000,secs=0,lvl=0;
@@ -543,7 +743,14 @@ function loadQ(){
     updSecs();
   }
   updDots();
-  document.getElementById('qtxt').textContent=q.text;
+  document.getElementById('qtxt').textContent=q.text.replace(/\n\[imagen:[^\]]*\]/,'').trim();
+  let imgEl=document.getElementById('qimg');
+  if(q.image){
+    if(!imgEl){imgEl=document.createElement('img');imgEl.id='qimg';imgEl.style.cssText='max-height:90px;margin:8px auto 0;display:block;border-radius:6px;border:1px solid var(--bb);';document.querySelector('.qcard').appendChild(imgEl);}
+    imgEl.src=q.image;imgEl.style.display='block';
+  } else {
+    if(imgEl)imgEl.style.display='none';
+  }
   const al=document.getElementById('alist');al.innerHTML='';
   ['A','B','C'].forEach((lt,i)=>{
     const b=document.createElement('button');b.className='abtn';b.id='ab'+i;
@@ -650,7 +857,7 @@ function showFBEliminated(text){
     ? '⏱️ Tiempo agotado con 0 PrevenPoints apostados en la correcta. Lamentablemente no puedes continuar el juego.'
     : 'Lamentablemente has perdido todos tus PrevenPoints y no puedes continuar el juego.';
   document.getElementById('fbpts').textContent=elimMsg;
-  document.getElementById('fbtxt').textContent=text;
+  document.getElementById('fbtxt').innerHTML=text.replace(/\n/g,'<br>');
   document.getElementById('fbcard').className='fbcard wfb';
   const btn=document.getElementById('fb-btn');
   btn.textContent='📋 VER MI RESULTADO FINAL';
@@ -673,7 +880,7 @@ function showFB(ok,won,text,last){
       : 'No tenías PrevenPoints apostados en la respuesta correcta. Pasas a la siguiente pregunta con 0 PrevenPoints.';
     document.getElementById('fbpts').textContent=msg;
   }
-  document.getElementById('fbtxt').textContent=text;
+  document.getElementById('fbtxt').innerHTML=text.replace(/\n/g,'<br>');
   document.getElementById('fbcard').className='fbcard'+(ok?'':' wfb');
   const btn=document.getElementById('fb-btn');
   if(last){
