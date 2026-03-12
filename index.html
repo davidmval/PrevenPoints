@@ -266,6 +266,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
     </div>
     <div class="bp-dots" id="sb-dots"></div>
 
+    <!-- Bloque de contacto -->
     <div style="margin-top:auto;padding-top:14px;width:100%;position:relative;z-index:1;">
       <div style="width:32px;height:1px;background:rgba(255,255,255,.15);border-radius:2px;margin:0 auto 10px;"></div>
       <div style="font-size:10px;color:rgba(255,255,255,0.85);text-align:center;line-height:1.6;padding:0 6px;">
@@ -277,7 +278,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
           <span>prevencion@cepymearagon.es</span>
         </div>
         <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,0.85);">
-          <span style="font-size:13px;">📞</span>
+          <span style="font-size:13px;filter:brightness(10);">📞</span>
           <span>976 76 60 60</span>
         </div>
       </div>
@@ -297,6 +298,22 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
           <div class="bp-div"></div>
           <div class="bp-sub" style="font-size:9.5px;color:#ffffff;">CEPYME Aragón · PRL</div>
           <div style="font-size:10px;color:#fff;text-align:center;line-height:1.6;padding:0 6px;opacity:0.85;">Un juego para poner a prueba tus conocimientos en Prevención de Riesgos Laborales</div>
+        </div>
+        <div style="margin-top:auto;padding-top:14px;width:100%;position:relative;z-index:1;">
+          <div style="width:32px;height:1px;background:rgba(255,255,255,.15);border-radius:2px;margin:0 auto 10px;"></div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.85);text-align:center;line-height:1.6;padding:0 6px;">
+            Si tienes cualquier duda sobre el juego contacta con nuestro departamento:
+          </div>
+          <div style="margin-top:7px;display:flex;flex-direction:column;gap:5px;padding:0 6px;">
+            <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,0.85);">
+              <span style="font-size:13px;">✉️</span>
+              <span>prevencion@cepymearagon.es</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,0.85);">
+              <span style="font-size:13px;filter:brightness(10);">📞</span>
+              <span>976 76 60 60</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="reg-right" style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 36px;background:#fff;">
@@ -804,7 +821,6 @@ function adj(idx,delta,e){
 }
 function adjTodo(idx,e){
   if(e)e.stopPropagation();if(resolved)return;
-  // Bet all remaining free points on this answer
   const free=pp-bets.reduce((a,b)=>a+b,0);
   if(free<=0)return;
   bets[idx]+=free;
@@ -842,7 +858,6 @@ function resolveQ(){
   const q=QS[lvl],ci=q.correct,won=bets[ci];
   secs+=tLeft;
 
-  // Colorear respuestas
   for(let i=0;i<3;i++){
     const b=document.getElementById('ab'+i);if(!b)continue;
     if(i===ci)b.classList.add('correct');
@@ -851,18 +866,13 @@ function resolveQ(){
     b.querySelectorAll('.bc').forEach(c=>c.disabled=true);
   }
 
-  // Calcular PrevenPoints resultantes:
-  // Solo se conservan los apostados en la respuesta CORRECTA
-  // Los no apostados y los apostados en erróneas se pierden siempre
   pp = won;
 
-  // ¿Sin PrevenPoints? → eliminado, enviar formulario y mostrar fin
   if(pp===0){
     showFBEliminated(q.feedback);
     return;
   }
 
-  // Continúa con feedback normal
   showFB(won>0, won, q.feedback, lvl===19);
 }
 
@@ -918,11 +928,8 @@ function goResults(){
   document.getElementById('res-modalidad').textContent=modalidad;
   document.getElementById('res-pts').textContent=fmt(pp);
   document.getElementById('res-sec').textContent=secs;
-  // Mensaje especial si han quedado eliminados
-  // Primero cambiar pantalla y enviar formulario — siempre, antes de cualquier otra cosa
   showS('s-res');
   sendGF();
-  // Luego personalizar pantalla si está eliminado
   if(pp===0){
     try{
       document.querySelector('.res-trophy').textContent='💀';
